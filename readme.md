@@ -1,5 +1,6 @@
 **grunt-start-project**
 =======================
+
 Projelerimizde rutin olarak yapmamız gereken işleri grunt ile otomatize ederek hızlı bir şekilde çalışmamızı sağlar.
 
 **Kurulum**
@@ -8,11 +9,11 @@ Projemizde Grunt kullanabilmek için öncelikle [node.js](http://nodejs.org) kur
 
 Node kurulumunu yaptıktan sonra Grunt kurulumu için terminale aşağıdaki komutları yazmamız gerekmektedir.
 
-> $ npm install -g grunt-cli
+    npm install -g grunt-cli
 
 Grunt kurulumunu yaptıktan sonra node modülerimizi yüklememiz gerekmektedir.
 
-> $ npm install
+    npm install
 
 **Kullanım**
 -------
@@ -22,8 +23,9 @@ Projede dev ve live olmak üzere iki tane register task bulunmaktadır.
 
 Projemiz geliştirme aşamasında dev taskını kullanacağız.
 
-> grunt dev
+    grunt dev
 
 Projemiz yayına hazır hale geldiğinde live taskını kullanacağız.
 
-> grunt live
+    grunt live
+
