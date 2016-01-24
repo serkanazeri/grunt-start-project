@@ -1,4 +1,4 @@
-**grunt-start-project**
+**Grunt Start Project**
 =======================
 
 Projelerimizde rutin olarak yapmamız gereken işleri grunt ile otomatize ederek hızlı bir şekilde çalışmamızı sağlar.
