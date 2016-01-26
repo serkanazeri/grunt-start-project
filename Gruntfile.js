@@ -48,6 +48,14 @@ module.exports = function(grunt) {
             }
         },
 
+        uglify: {
+            js: {
+                files: {
+                    '<%= config.app %>/js/scripts.min.js': ['<%= config.app %>/js/scripts.js']
+                }
+            }
+        },
+
         sass: {
             dev:{
                 files: [{
@@ -69,9 +77,8 @@ module.exports = function(grunt) {
         },
 
         clean: {
-            sass: ['<%= config.app %>/sass'],
-            css: ['<%= config.app %>/css/*.css','<%= config.app %>/css/*.css.map','!<%= config.app %>/css/styles.min.css'],
-            js: ['<%= config.app %>/js/*.js', '!<%= config.app %>/js/scripts.js']
+            dev: ['<%= config.app %>/sass','<%= config.app %>/css/styles.min.css','<%= config.app %>/js/scripts.min.js'],
+            live: ['<%= config.app %>/sass','<%= config.app %>/css/*.css','<%= config.app %>/css/*.css.map','!<%= config.app %>/css/styles.min.css','<%= config.app %>/js/*.js', '!<%= config.app %>/js/scripts.min.js']
         },
 
         injector: {
@@ -88,25 +95,7 @@ module.exports = function(grunt) {
         },
 
         jshint: {
-            all: ['<%= config.app %>/js/*.js']
-        },
-
-        watch: {
-            options:{
-                livereload: true
-            },
-            sass: {
-                files: '<%= config.source %>/sass/*.sass',
-                tasks: ['sass:dev']
-            },
-            scripts: {
-                files: '<%= config.source %>/scripts/*.js',
-                tasks: ['copy:js','jshint']
-            },
-            html: {
-                files: '<%= config.source %>/*.html',
-                tasks: ['copy:html','injector']
-            }
+            all: ['<%= config.app %>/js/*.js','!<%= config.app %>/js/scripts.min.js']
         },
 
         browserSync: {
@@ -123,6 +112,20 @@ module.exports = function(grunt) {
                     server: './<%= config.app %>'
                 }
             }
+        },
+
+        watch: {
+            options:{
+                livereload: true
+            },
+            dev:{
+                files: ['<%= config.source %>/sass/*.sass','<%= config.source %>/scripts/*.js','<%= config.source %>/*.html'],
+                tasks: ['sass:dev','copy:js','jshint','copy:html','injector']
+            },
+            live:{
+                files: ['<%= config.source %>/sass/*.sass','<%= config.source %>/scripts/*.js','<%= config.source %>/*.html'],
+                tasks: ['concat:css','sass:live','copy:js','concat:js','jshint','uglify','copy:html','clean:live','injector']
+            }
         }
 
     });
@@ -130,6 +133,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-injector');
@@ -137,7 +141,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('dev', ['copy','sass:dev','injector','jshint','browserSync','watch']);
-    grunt.registerTask('live', ['htmlmin','concat','sass:live','clean','injector']);
+    grunt.registerTask('dev', ['copy','sass:dev','clean:dev','injector','jshint','browserSync','watch:dev']);
+    grunt.registerTask('live', ['htmlmin','concat','jshint','uglify','sass:live','clean:live','injector','browserSync','watch:live']);
 
 };

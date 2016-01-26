@@ -21,7 +21,7 @@ Node ve Grunt kurulumunu yaptık node modüllerimizi yükledik artık projemizi 
 
 Projede dev ve live olmak üzere iki tane register task bulunmaktadır.
 
-Projemiz geliştirme aşamasında dev taskını kullanacağız.
+Projemizi geliştirirken dev taskını kullanacağız.
 
     grunt dev
 
