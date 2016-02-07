@@ -23,6 +23,14 @@ module.exports = function(grunt) {
                 dest: '<%= config.app %>/js/',
                 flatten: true,
                 filter: 'isFile'
+            },
+            images: {
+                expand: true,
+                cwd: '<%= config.source %>/images/',
+                src: ['*.jpg','*.gif','*.png'],
+                dest: '<%= config.app %>/images/',
+                flatten: true,
+                filter: 'isFile'
             }
         },
 
@@ -142,6 +150,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('dev', ['copy','sass:dev','clean:dev','injector','jshint','browserSync','watch:dev']);
-    grunt.registerTask('live', ['htmlmin','concat','jshint','uglify','sass:live','clean:live','injector','browserSync','watch:live']);
+    grunt.registerTask('live', ['htmlmin','copy:images','concat','jshint','uglify','sass:live','clean:live','injector','browserSync','watch:live']);
 
 };
