@@ -31,6 +31,22 @@ module.exports = function(grunt) {
                 dest: '<%= config.app %>/images/',
                 flatten: true,
                 filter: 'isFile'
+            },
+            css: {
+                expand: true,
+                cwd: '<%= config.source %>/css/',
+                src: ['*.css'],
+                dest: '<%= config.app %>/css/',
+                flatten: true,
+                filter: 'isFile'
+            },
+            fonts: {
+                expand: true,
+                cwd: '<%= config.source %>/fonts/',
+                src: ['*.eot','*.svg','*.ttf','*.woff'],
+                dest: '<%= config.app %>/fonts/',
+                flatten: true,
+                filter: 'isFile'
             }
         },
 
